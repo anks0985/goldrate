@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Gold Rate</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: #141414;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 40px 60px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .5);
+        }
+
+        .title {
+            color: #c8aa3c;
+            letter-spacing: 2px;
+            font-size: 16px;
+        }
+
+        .value {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 12px 0;
+        }
+
+        .row {
+            color: #aaa;
+            font-size: 15px;
+            margin-top: 6px;
+        }
+
+        .updated {
+            color: #666;
+            font-size: 12px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="title">GOLD RATE</div>
+        <div class="value" id="buy">--</div>
+        <div class="row">Sell: <span id="sell">--</span></div>
+        <div class="row">USD/INR: <span id="inr">--</span></div>
+        <div class="updated" id="updated"></div>
+    </div>
+
+    <script>
+        async function load() {
+            try {
+                const r = await fetch("https://goldrate.divyanshbansal.com/api/live");
+                const d = await r.json();
+                document.getElementById("buy").textContent = "₹" + d.gold.buy;
+                document.getElementById("sell").textContent = "₹" + d.gold.sell;
+                document.getElementById("inr").textContent = d.dollarinr.buy;
+                document.getElementById("updated").textContent =
+                    "Updated " + new Date().toLocaleTimeString();
+            } catch (e) {
+                document.getElementById("buy").textContent = "error";
+            }
+        }
+        load();
+        setInterval(load, 30000);
+    </script>
+</body>
+
+</html>
