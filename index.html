@@ -65,8 +65,8 @@
             try {
                 const r = await fetch("https://goldrate.divyanshbansal.com/api/live");
                 const d = await r.json();
-                document.getElementById("buy").textContent = "₹" + d.gold.buy;
-                document.getElementById("sell").textContent = "₹" + d.gold.sell;
+                document.getElementById("buy").textContent = "₹" + d.gold.sell;
+                document.getElementById("sell").textContent = "₹" + d.gold.buy;
                 document.getElementById("inr").textContent = d.dollarinr.buy;
                 document.getElementById("updated").textContent =
                     "Updated " + new Date().toLocaleTimeString();
